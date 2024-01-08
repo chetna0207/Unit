@@ -1,4 +1,4 @@
-name: Node.js CI/CD with NPM
+name: Node.js CI/CD with NPN
  
 on:
   push:
