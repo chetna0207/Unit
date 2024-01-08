@@ -8,22 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
-    steps:
-      - name: Generate a token
-        id: generate_token
-        uses: actions/create-github-app-token@v1
-        with:
-          app-id: ${{ secrets.APPID }}
-          private-key: ${{ secrets.PRIVATEKEY }}
-
-      - name: Use the token
-        env:
-          GH_TOKEN: ${{ steps.generate_token.outputs.token }}
-        run: |
-          gh api octocat
  
-      
+      steps:
       - name: Checkout code
         uses: actions/checkout@v2
  
