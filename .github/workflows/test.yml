@@ -1,36 +1,27 @@
-name: Node.js CI/CD with NPm
- 
+name: "sonarcloud_scan_github_actions"
+
 on:
   push:
     branches:
       - main
- 
+
 jobs:
-  build:
+  sonarcloud:
+    name: SonarCloud Scan
     runs-on: ubuntu-latest
- 
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
- 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'  # You can adjust the version as needed
- 
-      - name: Install dependencies
-        run: npm install
+        uses: actions/checkout@v3
 
-      - name: Install mocha
-        run: npm install -g mochawesome mochawesome-report-generator
-      
-      - name: unit test
-        run: npm run test:unit
-
-      - name: BDD test
-        run: npm run test:bdd
-
-      - name: Atdd test
-        run: npm run test:atdd 
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # Ensure you add SONAR_TOKEN in your repository secrets
+        with: 
+         args: >
+          -Dsonar.projectKey=Unit
+          -Dsonar.organization=chetna0207
       
 
